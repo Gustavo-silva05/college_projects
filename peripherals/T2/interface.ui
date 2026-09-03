@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Dialog</class>
+ <widget class="QDialog" name="Dialog">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1139</width>
+    <height>760</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Dialog</string>
+  </property>
+  <widget class="QLabel" name="area_como_faz">
+   <property name="geometry">
+    <rect>
+     <x>570</x>
+     <y>70</y>
+     <width>301</width>
+     <height>271</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true"/>
+   </property>
+   <property name="text">
+    <string>&quot;area para mostrar como faz o exercicio&quot;</string>
+   </property>
+  </widget>
+  <widget class="QLCDNumber" name="lcd_reps_counter">
+   <property name="geometry">
+    <rect>
+     <x>580</x>
+     <y>430</y>
+     <width>271</width>
+     <height>161</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QLabel" name="area_camera">
+   <property name="geometry">
+    <rect>
+     <x>60</x>
+     <y>70</y>
+     <width>481</width>
+     <height>591</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>&quot;area da camera&quot;</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="reps_edit">
+   <property name="geometry">
+    <rect>
+     <x>580</x>
+     <y>384</y>
+     <width>171</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QRadioButton" name="apoio">
+   <property name="geometry">
+    <rect>
+     <x>890</x>
+     <y>182</y>
+     <width>121</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Apoio</string>
+   </property>
+  </widget>
+  <widget class="QRadioButton" name="salto">
+   <property name="geometry">
+    <rect>
+     <x>890</x>
+     <y>232</y>
+     <width>111</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>salto</string>
+   </property>
+  </widget>
+  <widget class="QRadioButton" name="agachamento">
+   <property name="geometry">
+    <rect>
+     <x>890</x>
+     <y>272</y>
+     <width>131</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>agachamento</string>
+   </property>
+  </widget>
+  <widget class="QRadioButton" name="flexao_lateral">
+   <property name="geometry">
+    <rect>
+     <x>890</x>
+     <y>332</y>
+     <width>131</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>flexao lateral</string>
+   </property>
+  </widget>
+  <widget class="QRadioButton" name="rosca_biceps">
+   <property name="geometry">
+    <rect>
+     <x>890</x>
+     <y>400</y>
+     <width>111</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>rosca biceps</string>
+   </property>
+  </widget>
+  <widget class="QRadioButton" name="abdominal">
+   <property name="geometry">
+    <rect>
+     <x>890</x>
+     <y>450</y>
+     <width>121</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>abdominal</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="title">
+   <property name="geometry">
+    <rect>
+     <x>360</x>
+     <y>30</y>
+     <width>441</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="cursor">
+    <cursorShape>WaitCursor</cursorShape>
+   </property>
+   <property name="styleSheet">
+    <string notr="true"/>
+   </property>
+   <property name="text">
+    <string>Sistema de Monitoramento</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="stop_button">
+   <property name="geometry">
+    <rect>
+     <x>580</x>
+     <y>660</y>
+     <width>121</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>PARAR</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="start_button">
+   <property name="geometry">
+    <rect>
+     <x>720</x>
+     <y>660</y>
+     <width>131</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>INICIAR</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="set_button">
+   <property name="geometry">
+    <rect>
+     <x>770</x>
+     <y>384</y>
+     <width>80</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>SET</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="target_reps">
+   <property name="geometry">
+    <rect>
+     <x>580</x>
+     <y>350</y>
+     <width>261</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>TextLabel</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="invalid_reps">
+   <property name="geometry">
+    <rect>
+     <x>590</x>
+     <y>610</y>
+     <width>261</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>TextLabel</string>
+   </property>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

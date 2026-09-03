@@ -1,0 +1,64 @@
+{
+  "dataset": "Wine Quality (red+white)",
+  "knn_variations": [
+    {
+      "accuracy": 0.7415384615384616,
+      "precision": 0.7834691501746216,
+      "recall": 0.8177399756986634,
+      "f1": 0.8002378121284186,
+      "n_neighbors": 3
+    },
+    {
+      "accuracy": 0.7561538461538462,
+      "precision": 0.7842696629213484,
+      "recall": 0.8481166464155528,
+      "f1": 0.814944541739638,
+      "n_neighbors": 7
+    },
+    {
+      "accuracy": 0.7530769230769231,
+      "precision": 0.7807606263982103,
+      "recall": 0.8481166464155528,
+      "f1": 0.8130460104834013,
+      "n_neighbors": 15
+    },
+    {
+      "accuracy": 0.7453846153846154,
+      "precision": 0.7685589519650655,
+      "recall": 0.8554070473876063,
+      "f1": 0.8096607245543416,
+      "n_neighbors": 31
+    }
+  ],
+  "logistic_regression": {
+    "accuracy": 0.7392307692307692,
+    "precision": 0.7665198237885462,
+    "recall": 0.8456865127582017,
+    "f1": 0.804159445407279,
+    "confusion_matrix": [
+      [
+        265,
+        212
+      ],
+      [
+        127,
+        696
+      ]
+    ],
+    "classification_report": "              precision    recall  f1-score   support\n\n   Ruim (<6)       0.68      0.56      0.61       477\n   Bom (>=6)       0.77      0.85      0.80       823\n\n    accuracy                           0.74      1300\n   macro avg       0.72      0.70      0.71      1300\nweighted avg       0.73      0.74      0.73      1300\n"
+  },
+  "knn_best": {
+    "n_neighbors": 7,
+    "confusion_matrix": [
+      [
+        285,
+        192
+      ],
+      [
+        125,
+        698
+      ]
+    ],
+    "classification_report": "              precision    recall  f1-score   support\n\n   Ruim (<6)       0.70      0.60      0.64       477\n   Bom (>=6)       0.78      0.85      0.81       823\n\n    accuracy                           0.76      1300\n   macro avg       0.74      0.72      0.73      1300\nweighted avg       0.75      0.76      0.75      1300\n"
+  }
+}

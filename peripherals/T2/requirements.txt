@@ -1,0 +1,5 @@
+# opencv-python
+opencv-python-headless
+mediapipe
+pyqt5           # needs Python 3.10 or less
+pyqt5-tools     # needs Python 3.10 or less

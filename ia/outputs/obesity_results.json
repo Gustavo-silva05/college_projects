@@ -1,0 +1,174 @@
+{
+  "dataset": "Obesity",
+  "naive_bayes_variations": [
+    {
+      "accuracy": 0.5059101654846335,
+      "precision_macro": 0.5143550267610418,
+      "recall_macro": 0.4977565856876202,
+      "f1_macro": 0.44803236813091196,
+      "var_smoothing": 1e-09
+    },
+    {
+      "accuracy": 0.5366430260047281,
+      "precision_macro": 0.5523587094865186,
+      "recall_macro": 0.5306885324126703,
+      "f1_macro": 0.488156073521895,
+      "var_smoothing": 1e-05
+    },
+    {
+      "accuracy": 0.5626477541371159,
+      "precision_macro": 0.5750316065048208,
+      "recall_macro": 0.5583294738467152,
+      "f1_macro": 0.521382463674331,
+      "var_smoothing": 0.01
+    },
+    {
+      "accuracy": 0.557919621749409,
+      "precision_macro": 0.5565545066035086,
+      "recall_macro": 0.5515893065154148,
+      "f1_macro": 0.5134574377069001,
+      "var_smoothing": 0.1
+    }
+  ],
+  "logistic_regression": {
+    "accuracy": 0.8652482269503546,
+    "precision_macro": 0.86160001205488,
+    "recall_macro": 0.8626508959021273,
+    "f1_macro": 0.8609337206237233,
+    "confusion_matrix": [
+      [
+        54,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        6,
+        41,
+        0,
+        0,
+        0,
+        11,
+        0
+      ],
+      [
+        0,
+        0,
+        64,
+        2,
+        0,
+        1,
+        3
+      ],
+      [
+        0,
+        0,
+        3,
+        57,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        1,
+        64,
+        0,
+        0
+      ],
+      [
+        0,
+        8,
+        0,
+        0,
+        0,
+        43,
+        7
+      ],
+      [
+        0,
+        2,
+        7,
+        1,
+        0,
+        5,
+        43
+      ]
+    ],
+    "classification_report": "                     precision    recall  f1-score   support\n\nInsufficient_Weight       0.90      1.00      0.95        54\n      Normal_Weight       0.80      0.71      0.75        58\n Overweight_Level_I       0.86      0.91      0.89        70\nOverweight_Level_II       0.93      0.95      0.94        60\n     Obesity_Type_I       1.00      0.98      0.99        65\n    Obesity_Type_II       0.72      0.74      0.73        58\n   Obesity_Type_III       0.81      0.74      0.77        58\n\n           accuracy                           0.87       423\n          macro avg       0.86      0.86      0.86       423\n       weighted avg       0.86      0.87      0.86       423\n"
+  },
+  "naive_bayes_best": {
+    "var_smoothing": 0.01,
+    "confusion_matrix": [
+      [
+        46,
+        2,
+        5,
+        1,
+        0,
+        0,
+        0
+      ],
+      [
+        31,
+        12,
+        5,
+        1,
+        0,
+        8,
+        1
+      ],
+      [
+        0,
+        1,
+        35,
+        29,
+        0,
+        2,
+        3
+      ],
+      [
+        0,
+        2,
+        1,
+        55,
+        0,
+        0,
+        2
+      ],
+      [
+        0,
+        0,
+        1,
+        0,
+        64,
+        0,
+        0
+      ],
+      [
+        5,
+        7,
+        16,
+        14,
+        0,
+        12,
+        4
+      ],
+      [
+        2,
+        2,
+        11,
+        28,
+        1,
+        0,
+        14
+      ]
+    ],
+    "classification_report": "                     precision    recall  f1-score   support\n\nInsufficient_Weight       0.55      0.85      0.67        54\n      Normal_Weight       0.46      0.21      0.29        58\n Overweight_Level_I       0.47      0.50      0.49        70\nOverweight_Level_II       0.43      0.92      0.59        60\n     Obesity_Type_I       0.98      0.98      0.98        65\n    Obesity_Type_II       0.55      0.21      0.30        58\n   Obesity_Type_III       0.58      0.24      0.34        58\n\n           accuracy                           0.56       423\n          macro avg       0.58      0.56      0.52       423\n       weighted avg       0.58      0.56      0.53       423\n"
+  }
+}

@@ -1,0 +1,123 @@
+/* Configuração Global */
+QWidget {
+    background-color: #F8FAFC;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    color: #1E293B;
+}
+
+/* Painéis brancos (se aplicar a um QFrame ou QWidget container) */
+QWidget#main_panel {
+    background-color: #FFFFFF;
+    border-radius: 16px;
+    border: 1px solid #E2E8F0;
+}
+
+/* Título */
+QLabel#title {
+    font-size: 24px;
+    font-weight: bold;
+    color: #0F172A;
+    background-color: transparent;
+}
+
+/* Áreas de Vídeo/Demonstração */
+QLabel#area_camera, QLabel#area_como_faz {
+    background-color: #E2E8F0;
+    border-radius: 16px;
+}
+
+/* Menu de Seleção de Exercícios (Radio Buttons) */
+QRadioButton {
+    background-color: #FFFFFF;
+    border: 1px solid #E2E8F0;
+    border-radius: 8px;
+    padding: 12px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #475569;
+    margin-bottom: 4px;
+}
+
+QRadioButton::indicator {
+    width: 18px;
+    height: 24px;
+    border-radius: 9px;
+    border: 2px solid #CBD5E1;
+    background-color: transparent;
+}
+
+/* Estado Ativo do Radio Button */
+QRadioButton::indicator:checked {
+    border: 5px solid #2563EB; /* Círculo interno azul */
+    background-color: #FFFFFF;
+}
+
+QRadioButton:checked {
+    border: 1px solid #2563EB;
+    background-color: #EFF6FF;
+    color: #1D4ED8;
+    font-weight: bold;
+}
+
+QRadioButton:hover {
+    background-color: #F8FAFC;
+}
+
+/* Contador LCD */
+QLCDNumber#lcd_reps_counter {
+    color: #0F172A;
+    border: none;
+    background-color: transparent;
+}
+
+/* Campo de Edição / Meta */
+QLineEdit#reps_edit {
+    background-color: #FFFFFF;
+    border: 1px solid #E2E8F0;
+    border-radius: 6px;
+    padding: 8px;
+    font-size: 14px;
+    color: #0F172A;
+}
+
+QLineEdit#reps_edit:focus {
+    border: 1px solid #2563EB;
+}
+
+/* Botões de Ação */
+QPushButton#start_button {
+    background-color: #2563EB;
+    color: #FFFFFF;
+    border-radius: 8px;
+    padding: 12px;
+    font-size: 14px;
+    font-weight: bold;
+    border: none;
+}
+
+QPushButton#start_button:hover {
+    background-color: #1D4ED8;
+}
+
+QPushButton#start_button:pressed {
+    background-color: #1E40AF;
+}
+
+QPushButton#stop_button {
+    background-color: #F8FAFC;
+    color: #0F172A;
+    border: 1px solid #E2E8F0;
+    border-radius: 8px;
+    padding: 12px;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+QPushButton#stop_button:hover {
+    background-color: #F1F5F9;
+    border: 1px solid #CBD5E1;
+}
+
+QPushButton#stop_button:pressed {
+    background-color: #E2E8F0;
+}
