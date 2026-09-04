@@ -1,0 +1,274 @@
+# //  Questa Altera Starter FPGA Edition-64
+# //  Version 2025.2 linux_x86_64 May 31 2025
+# //
+# // Unpublished work. Copyright 2025 Siemens
+# //
+# // This material contains trade secrets or otherwise confidential information
+# // owned by Siemens Industry Software Inc. or its affiliates (collectively,
+# // "SISW"), or its licensors. Access to and use of this information is strictly
+# // limited as set forth in the Customer's applicable agreements with SISW.
+# //
+# // This material may not be copied, distributed, or otherwise disclosed outside
+# // of the Customer's facilities without the express written permission of SISW,
+# // and may not be used in any way not expressly authorized by SISW.
+# //
+# do script.do
+# criando biblioteca WORK...
+#  
+# Questa Altera Starter FPGA Edition-64 vmap 2025.2 Lib Mapping Utility 2025.05 May 31 2025
+# vmap simprim simprim 
+# ** Note: (vmap-220) '/home/gustavo/altera/25.1std/questa_fse/linux_x86_64/../modelsim.ini' is used as the ini file.
+# Copying /home/gustavo/altera/25.1std/questa_fse/linux_x86_64/../modelsim.ini to modelsim.ini
+# Modifying modelsim.ini
+# Questa Altera Starter FPGA Edition-64 vcom 2025.2 Compiler 2025.05 May 31 2025
+# Start time: 17:10:51 on Sep 04,2026
+# vcom -reportprogress 300 -work simprim ./simprims.vhd 
+# ** Note: (vcom-220) 'modelsim.ini' is used as the ini file.
+# -- Loading package STANDARD
+# ** Error: ./simprims.vhd(1): near "cat": syntax error
+# ** Note: ./simprims.vhd(1): VHDL Compiler exiting
+# End time: 17:10:51 on Sep 04,2026, Elapsed time: 0:00:00
+# Errors: 1, Warnings: 0
+# ** Error: /home/gustavo/altera/25.1std/questa_fse/linux_x86_64/vcom failed.
+# Error in macro ./script.do line 20
+# /home/gustavo/altera/25.1std/questa_fse/linux_x86_64/vcom failed.
+#     while executing
+# "vcom -work simprim ./simprims.vhd"
+# Break key hit
+# Break key hit
+# Break key hit
+# Break key hit
+do script.do
+# apagando biblioteca WORK...
+# recriando biblioteca WORK...
+#  
+# Questa Altera Starter FPGA Edition-64 vcom 2025.2 Compiler 2025.05 May 31 2025
+# Start time: 17:11:54 on Sep 04,2026
+# vcom -reportprogress 300 ./decoder_scancode_ascii_map.vhd 
+# ** Note: (vcom-220) 'modelsim.ini' is used as the ini file.
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Compiling entity decoder_scancode_ascii
+# -- Compiling architecture Structure of decoder_scancode_ascii
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(225): (vcom-1141) Identifier "X_OBUF" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(230): (vcom-1141) Identifier "X_BUF" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(238): (vcom-1141) Identifier "X_OBUF" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(243): (vcom-1141) Identifier "X_BUF" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(251): (vcom-1141) Identifier "X_BUF" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(259): (vcom-1141) Identifier "X_BUF" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(267): (vcom-1141) Identifier "X_BUF" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(275): (vcom-1141) Identifier "X_BUF" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(283): (vcom-1141) Identifier "X_BUF" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(291): (vcom-1141) Identifier "X_BUF" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(299): (vcom-1141) Identifier "X_BUF" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(307): (vcom-1141) Identifier "X_BUF" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(315): (vcom-1141) Identifier "X_BUF" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(323): (vcom-1141) Identifier "X_BUF" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(331): (vcom-1141) Identifier "X_LUT4" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(342): (vcom-1141) Identifier "X_BUF" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(350): (vcom-1141) Identifier "X_BUF" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(358): (vcom-1141) Identifier "X_BUF" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(366): (vcom-1141) Identifier "X_BUF" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(374): (vcom-1141) Identifier "X_BUF" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(382): (vcom-1141) Identifier "X_BUF" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(390): (vcom-1141) Identifier "X_BUF" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(398): (vcom-1141) Identifier "X_BUF" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(406): (vcom-1141) Identifier "X_BUF" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(414): (vcom-1141) Identifier "X_BUF" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(422): (vcom-1141) Identifier "X_BUF" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(430): (vcom-1141) Identifier "X_BUF" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(438): (vcom-1141) Identifier "X_BUF" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(446): (vcom-1141) Identifier "X_BUF" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(454): (vcom-1141) Identifier "X_BUF" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(462): (vcom-1141) Identifier "X_BUF" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(470): (vcom-1141) Identifier "X_BUF" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(478): (vcom-1141) Identifier "X_BUF" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(486): (vcom-1141) Identifier "X_BUF" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(494): (vcom-1141) Identifier "X_BUF" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(502): (vcom-1141) Identifier "X_BUF" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(510): (vcom-1141) Identifier "X_BUF" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(518): (vcom-1141) Identifier "X_BUF" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(526): (vcom-1141) Identifier "X_BUF" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(534): (vcom-1141) Identifier "X_BUF" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(542): (vcom-1141) Identifier "X_LUT4" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(553): (vcom-1141) Identifier "X_LUT4" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(564): (vcom-1141) Identifier "X_BUF" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(572): (vcom-1141) Identifier "X_BUF" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(580): (vcom-1141) Identifier "X_LUT4" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(591): (vcom-1141) Identifier "X_BUF" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(599): (vcom-1141) Identifier "X_LUT4" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(610): (vcom-1141) Identifier "X_BUF" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(618): (vcom-1141) Identifier "X_BUF" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(626): (vcom-1141) Identifier "X_LUT4" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(637): (vcom-1141) Identifier "X_LUT4" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(648): (vcom-1141) Identifier "X_LUT4" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(659): (vcom-1141) Identifier "X_BUF" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(667): (vcom-1141) Identifier "X_BUF" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(675): (vcom-1141) Identifier "X_LUT4" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(686): (vcom-1141) Identifier "X_LUT4" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(697): (vcom-1141) Identifier "X_LUT4" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(708): (vcom-1141) Identifier "X_BUF" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(716): (vcom-1141) Identifier "X_BUF" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(724): (vcom-1141) Identifier "X_BUF" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(732): (vcom-1141) Identifier "X_OBUF" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(737): (vcom-1141) Identifier "X_OBUF" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(742): (vcom-1141) Identifier "X_BUF" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(750): (vcom-1141) Identifier "X_BUF" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(758): (vcom-1141) Identifier "X_OBUF" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(763): (vcom-1141) Identifier "X_OBUF" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(768): (vcom-1141) Identifier "X_BUF" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(776): (vcom-1141) Identifier "X_BUF" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(784): (vcom-1141) Identifier "X_OBUF" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(789): (vcom-1141) Identifier "X_BUF" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(797): (vcom-1141) Identifier "X_OBUF" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(802): (vcom-1141) Identifier "X_BUF" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(810): (vcom-1141) Identifier "X_MUX2" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(817): (vcom-1141) Identifier "X_BUF" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(825): (vcom-1141) Identifier "X_BUF" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(833): (vcom-1141) Identifier "X_MUX2" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(840): (vcom-1141) Identifier "X_BUF" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(848): (vcom-1141) Identifier "X_BUF" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(856): (vcom-1141) Identifier "X_MUX2" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(863): (vcom-1141) Identifier "X_BUF" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(871): (vcom-1141) Identifier "X_BUF" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(879): (vcom-1141) Identifier "X_MUX2" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(886): (vcom-1141) Identifier "X_BUF" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(894): (vcom-1141) Identifier "X_BUF" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(902): (vcom-1141) Identifier "X_MUX2" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(909): (vcom-1141) Identifier "X_BUF" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(917): (vcom-1141) Identifier "X_BUF" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(925): (vcom-1141) Identifier "X_MUX2" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(932): (vcom-1141) Identifier "X_BUF" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(940): (vcom-1141) Identifier "X_BUF" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(948): (vcom-1141) Identifier "X_MUX2" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(955): (vcom-1141) Identifier "X_BUF" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(963): (vcom-1141) Identifier "X_BUF" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(971): (vcom-1141) Identifier "X_MUX2" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(978): (vcom-1141) Identifier "X_BUF" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(986): (vcom-1141) Identifier "X_BUF" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(994): (vcom-1141) Identifier "X_BUF" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(1002): (vcom-1141) Identifier "X_BUF" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(1010): (vcom-1141) Identifier "X_BUF" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(1018): (vcom-1141) Identifier "X_BUF" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(1026): (vcom-1141) Identifier "X_BUF" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(1034): (vcom-1141) Identifier "X_BUF" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(1042): (vcom-1141) Identifier "X_BUF" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(1050): (vcom-1141) Identifier "X_BUF" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(1058): (vcom-1141) Identifier "X_BUF" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(1066): (vcom-1141) Identifier "X_BUF" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(1074): (vcom-1141) Identifier "X_BUF" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(1082): (vcom-1141) Identifier "X_BUF" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(1090): (vcom-1141) Identifier "X_BUF" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(1098): (vcom-1141) Identifier "X_BUF" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(1106): (vcom-1141) Identifier "X_BUF" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(1114): (vcom-1141) Identifier "X_BUF" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(1122): (vcom-1141) Identifier "X_BUF" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(1130): (vcom-1141) Identifier "X_BUF" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(1138): (vcom-1141) Identifier "X_BUF" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(1146): (vcom-1141) Identifier "X_BUF" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(1154): (vcom-1141) Identifier "X_BUF" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(1162): (vcom-1141) Identifier "X_BUF" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(1170): (vcom-1141) Identifier "X_BUF" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(1178): (vcom-1141) Identifier "X_BUF" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(1186): (vcom-1141) Identifier "X_BUF" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(1194): (vcom-1141) Identifier "X_BUF" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(1202): (vcom-1141) Identifier "X_BUF" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(1210): (vcom-1141) Identifier "X_LUT4" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(1221): (vcom-1141) Identifier "X_LUT4" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(1232): (vcom-1141) Identifier "X_LUT4" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(1243): (vcom-1141) Identifier "X_LUT4" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(1254): (vcom-1141) Identifier "X_LUT4" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(1265): (vcom-1141) Identifier "X_LUT4" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(1276): (vcom-1141) Identifier "X_LUT4" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(1287): (vcom-1141) Identifier "X_LUT4" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(1298): (vcom-1141) Identifier "X_LUT4" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(1309): (vcom-1141) Identifier "X_LUT4" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(1320): (vcom-1141) Identifier "X_LUT4" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(1331): (vcom-1141) Identifier "X_BUF" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(1339): (vcom-1141) Identifier "X_LUT4" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(1350): (vcom-1141) Identifier "X_LUT4" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(1361): (vcom-1141) Identifier "X_LUT4" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(1372): (vcom-1141) Identifier "X_LUT4" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(1383): (vcom-1141) Identifier "X_LUT4" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(1394): (vcom-1141) Identifier "X_LUT4" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(1405): (vcom-1141) Identifier "X_LUT4" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(1416): (vcom-1141) Identifier "X_LUT4" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(1427): (vcom-1141) Identifier "X_LUT4" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(1438): (vcom-1141) Identifier "X_LUT4" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(1449): (vcom-1141) Identifier "X_LUT4" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(1460): (vcom-1141) Identifier "X_LUT4" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(1471): (vcom-1141) Identifier "X_LUT4" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(1482): (vcom-1141) Identifier "X_LUT4" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(1493): (vcom-1141) Identifier "X_LUT4" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(1504): (vcom-1141) Identifier "X_LUT4" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(1515): (vcom-1141) Identifier "X_LUT4" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(1526): (vcom-1141) Identifier "X_LUT4" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(1537): (vcom-1141) Identifier "X_LUT4" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(1548): (vcom-1141) Identifier "X_LUT4" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(1559): (vcom-1141) Identifier "X_LUT4" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(1570): (vcom-1141) Identifier "X_LUT4" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(1581): (vcom-1141) Identifier "X_LUT4" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(1592): (vcom-1141) Identifier "X_LUT4" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(1603): (vcom-1141) Identifier "X_LUT4" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(1614): (vcom-1141) Identifier "X_LUT4" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(1625): (vcom-1141) Identifier "X_LUT4" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(1636): (vcom-1141) Identifier "X_LUT4" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(1647): (vcom-1141) Identifier "X_LUT4" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(1658): (vcom-1141) Identifier "X_LUT4" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(1669): (vcom-1141) Identifier "X_LUT4" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(1680): (vcom-1141) Identifier "X_LUT4" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(1691): (vcom-1141) Identifier "X_LUT4" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(1702): (vcom-1141) Identifier "X_LUT4" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(1713): (vcom-1141) Identifier "X_LUT4" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(1724): (vcom-1141) Identifier "X_LUT4" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(1735): (vcom-1141) Identifier "X_LUT4" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(1746): (vcom-1141) Identifier "X_LUT4" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(1757): (vcom-1141) Identifier "X_LUT4" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(1768): (vcom-1141) Identifier "X_LUT4" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(1779): (vcom-1141) Identifier "X_LUT4" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(1790): (vcom-1141) Identifier "X_LUT4" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(1801): (vcom-1141) Identifier "X_LUT4" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(1812): (vcom-1141) Identifier "X_LUT4" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(1823): (vcom-1141) Identifier "X_LUT4" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(1834): (vcom-1141) Identifier "X_LUT4" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(1845): (vcom-1141) Identifier "X_LUT4" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(1856): (vcom-1141) Identifier "X_LUT4" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(1867): (vcom-1141) Identifier "X_LUT4" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(1878): (vcom-1141) Identifier "X_LUT4" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(1889): (vcom-1141) Identifier "X_LUT4" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(1900): (vcom-1141) Identifier "X_LUT4" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(1911): (vcom-1141) Identifier "X_LUT4" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(1922): (vcom-1141) Identifier "X_LUT4" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(1933): (vcom-1141) Identifier "X_LUT4" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(1944): (vcom-1141) Identifier "X_LUT4" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(1955): (vcom-1141) Identifier "X_LUT4" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(1966): (vcom-1141) Identifier "X_LUT4" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(1977): (vcom-1141) Identifier "X_LUT4" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(1988): (vcom-1141) Identifier "X_LUT4" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(1999): (vcom-1141) Identifier "X_LUT4" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(2010): (vcom-1141) Identifier "X_LUT4" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(2021): (vcom-1141) Identifier "X_LUT4" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(2032): (vcom-1141) Identifier "X_LUT4" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(2043): (vcom-1141) Identifier "X_LUT4" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(2054): (vcom-1141) Identifier "X_LUT4" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(2065): (vcom-1141) Identifier "X_BUF" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(2073): (vcom-1141) Identifier "X_BUF" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(2081): (vcom-1141) Identifier "X_BUF" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(2089): (vcom-1141) Identifier "X_BUF" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(2097): (vcom-1141) Identifier "X_BUF" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(2105): (vcom-1141) Identifier "X_BUF" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(2113): (vcom-1141) Identifier "X_BUF" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(2121): (vcom-1141) Identifier "X_BUF" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(2129): (vcom-1141) Identifier "X_LUT4" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(2140): (vcom-1141) Identifier "X_ONE" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(2144): (vcom-1141) Identifier "X_ROC" does not identify a component declaration.
+# ** Error (suppressible): ./decoder_scancode_ascii_map.vhd(2147): (vcom-1141) Identifier "X_TOC" does not identify a component declaration.
+# ** Note: ./decoder_scancode_ascii_map.vhd(2150): VHDL Compiler exiting
+# End time: 17:11:54 on Sep 04,2026, Elapsed time: 0:00:00
+# Errors: 213, Warnings: 0
+# ** Error: /home/gustavo/altera/25.1std/questa_fse/linux_x86_64/vcom failed.
+# Error in macro ./script.do line 14
+# /home/gustavo/altera/25.1std/questa_fse/linux_x86_64/vcom failed.
+#     while executing
+# "vcom 	./decoder_scancode_ascii_map.vhd"
