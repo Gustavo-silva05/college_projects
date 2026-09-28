@@ -1,0 +1,17 @@
+{
+  "name": "aviao-dashboard",
+  "version": "1.0.0",
+  "description": "Servidor estatico para o dashboard web de monitoramento dos avioes",
+  "scripts": {
+    "server": "node dashboard/server.js",
+    "sim": "node simulator/simulate.js",
+    "start": "concurrently -k -s first \"npm run server\" \"npm run sim\""
+  },
+  "dependencies": {
+    "express": "^4.21.1",
+     "mqtt": "^5.10.1"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.0"
+  }
+}
