@@ -1,6 +1,7 @@
 #include <Arduino.h>
 #include <Preferences.h>
 #include <WiFi.h>
+#include <DNSServer.h>
 #include <AsyncTCP.h>
 #include <ESPAsyncWebServer.h>
 #include "FS.h"
@@ -13,39 +14,40 @@
 // ================= WiFi (AP/STA fallback, credenciais na NVS) =================
 String ssid = "";
 String password = "";
-int esp_mode = 0;  // 0 = AP, 1 = STA
 Preferences memoria;
 AsyncWebServer server(80);
+DNSServer dnsServer;
+bool captivePortalActive = false;
 
 // ================= MQTT =================
-const char* mqtt_broker = "broker.emqx.io";
-const int   mqtt_port   = 1883;
-#define MQTT_ID     "esp32_G1"        // <-- TROCAR: precisa ser UNICO no broker
-#define TOPICO_PUB  "Embarcados/G1"   // <-- TROCAR: conforme o numero do seu grupo
+const char *mqtt_broker = "broker.emqx.io";
+const int mqtt_port = 1883;
+#define MQTT_ID "esp32_G1"         // <-- TROCAR: precisa ser UNICO no broker
+#define TOPICO_PUB "Embarcados/G1" // <-- TROCAR: conforme o numero do seu grupo
 
 WiFiClient espClient;
 PubSubClient MQTT(espClient);
 
 // ================= Pinos =================
-const byte xAxisPin  = 34;   // joystick eixo X (acelera/desacelera)
-const byte yAxisPin  = 35;   // joystick eixo Y (sobe/desce)
-const byte buttonPin = 32;   // joystick SW (inicia percurso)
-const byte servoPin  = 18;   // servo do profundor/asa
+const byte xAxisPin = 34;  // joystick eixo X (acelera/desacelera)
+const byte yAxisPin = 35;  // joystick eixo Y (sobe/desce)
+const byte buttonPin = 32; // joystick SW (inicia percurso)
+const byte servoPin = 18;  // servo do profundor/asa
 
 // ================= Sensores/atuadores =================
 // GY521 sensor(0x68);
 Servo asaServo;
 
 // ================= Estado compartilhado entre as tasks =================
-volatile float g_pitch       = 0;
-volatile float g_altitude    = 4000.0;   // parte de 4000m
-volatile float g_velocidade  = 200.0;    // parte de 200km/h
-volatile float g_distancia   = 0.0;
-volatile bool  g_started     = false;
+volatile float g_pitch = 0;
+volatile float g_altitude = 4000.0;  // parte de 4000m
+volatile float g_velocidade = 200.0; // parte de 200km/h
+volatile float g_distancia = 0.0;
+volatile bool g_started = false;
 
 float servoAngle = 90.0; // 90 = nivelado
 
-const float ANGLE_STEP = 0.5, ANGLE_MIN = 60.0,  ANGLE_MAX = 120.0;
+const float ANGLE_STEP = 0.5, ANGLE_MIN = 60.0, ANGLE_MAX = 120.0;
 const float SPEED_STEP = 0.5, SPEED_MIN = 160.0, SPEED_MAX = 240.0;
 
 SemaphoreHandle_t dataMutex;
@@ -53,8 +55,10 @@ SemaphoreHandle_t dataMutex;
 // ============================================================
 // Portal de configuracao
 // ============================================================
-void PaginaSalva(AsyncWebServerRequest *request) {
-  if (request->hasArg("ssid") && request->hasArg("password")) {
+void PaginaSalva(AsyncWebServerRequest *request)
+{
+  if (request->hasArg("ssid") && request->hasArg("password"))
+  {
     String NovoSSID = request->arg("ssid");
     String NovaSenha = request->arg("password");
     memoria.begin("wifi", false);
@@ -64,59 +68,108 @@ void PaginaSalva(AsyncWebServerRequest *request) {
     request->send(200, "text/html", "<h3>Configuracao salva! Reinicie o ESP32.</h3>");
     delay(1000);
     ESP.restart();
-  } else {
+  }
+  else
+  {
     request->send(400, "text/plain", "Erro: parametros invalidos");
   }
 }
 
-void PaginaConfig(AsyncWebServerRequest *request) {
+void PaginaConfig(AsyncWebServerRequest *request)
+{
   request->send(SPIFFS, "/config.html", "text/html");
 }
 
 // ============================================================
 // WiFi manager
 // ============================================================
-void setupAP() {
-  esp_mode = 0;
-  WiFi.softAP("Mesa5ESP32", "12345678");
-  server.on("/", HTTP_GET, PaginaConfig);
-  server.on("/save", HTTP_POST, PaginaSalva);
-  server.serveStatic("/", SPIFFS, "/");
-  server.begin();
-  Serial.println("AP iniciado. IP: 192.168.4.1 — acesse para configurar o WiFi.");
+bool isIp(String str)
+{
+  for (size_t i = 0; i < str.length(); i++)
+  {
+    int c = str.charAt(i);
+    if (c != '.' && (c < '0' || c > '9'))
+      return false;
+  }
+  return true;
 }
 
-void setupSTA() {
+void setupAP()
+{
+  WiFi.mode(WIFI_AP);
+  WiFi.softAP("ESP32_GustavoSilva", "0123456789");
+
+  vTaskDelay(pdMS_TO_TICKS(100)); // Estabiliza a interface AP
+
+  IPAddress apIP = WiFi.softAPIP();
+  dnsServer.setErrorReplyCode(DNSReplyCode::NoError);
+  dnsServer.start(53, "*", apIP);
+  captivePortalActive = true;
+
+  server.serveStatic("/", SPIFFS, "/").setDefaultFile("config.html");
+  server.on("/save", HTTP_POST, PaginaSalva);
+
+  server.onNotFound([apIP](AsyncWebServerRequest *r)
+                    {
+  if (!isIp(r->host())) {                       // probes de conectividade / domínios externos
+    auto *res = r->beginResponse(302, "text/plain", "");
+    res->addHeader("Location", "http://" + apIP.toString() + "/");
+    res->addHeader("Cache-Control", "no-store");
+    r->send(res);
+    return;
+  }
+  if (r->method() == HTTP_GET && r->url().indexOf('.') < 0) {
+  if (SPIFFS.exists("/config.html")) r->send(SPIFFS, "/config.html", "text/html");
+  else r->send(500, "text/plain", "config.html ausente no SPIFFS");
+  } });
+
+  server.begin(); // <-- obrigatório
+  Serial.print("AP iniciado. IP: ");
+  Serial.println(apIP);
+}
+
+void setupSTA()
+{
   WiFi.begin(ssid.c_str(), password.c_str());
   Serial.printf("Conectando em %s...\n", ssid.c_str());
   unsigned long start = millis();
-  while (WiFi.status() != WL_CONNECTED && millis() - start < 10000) {
+  while (WiFi.status() != WL_CONNECTED && millis() - start < 10000)
+  {
     delay(500);
     Serial.print(".");
   }
-  if (WiFi.status() == WL_CONNECTED) {
+  if (WiFi.status() == WL_CONNECTED)
+  {
     Serial.println("\nConectado com sucesso!");
     Serial.println(WiFi.localIP());
-    esp_mode = 1;
-  } else {
+  }
+  else
+  {
     Serial.println("\nFalha ao conectar, iniciando AP novamente...");
     setupAP();
   }
 }
 
-void conectaWifi() {
-  if (WiFi.status() == WL_CONNECTED) return;
+void conectaWifi()
+{
+  if (WiFi.status() == WL_CONNECTED || captivePortalActive)
+    return;
   setupSTA();
 }
 
 // ============================================================
 // MQTT
 // ============================================================
-void conectaBroker() {
-  while (!MQTT.connected()) {
-    if (MQTT.connect(MQTT_ID)) {
+void conectaBroker()
+{
+  while (!MQTT.connected())
+  {
+    if (MQTT.connect(MQTT_ID))
+    {
       Serial.println("Conectado ao Broker!");
-    } else {
+    }
+    else
+    {
       Serial.print("Falha na conexao. Status: ");
       Serial.println(MQTT.state());
       vTaskDelay(pdMS_TO_TICKS(2000));
@@ -124,20 +177,21 @@ void conectaBroker() {
   }
 }
 
-void publicaDados() {
+void publicaDados()
+{
   float pitch, altitude, velocidade, distancia;
 
   xSemaphoreTake(dataMutex, portMAX_DELAY);
-  pitch      = g_pitch;
-  altitude   = g_altitude;
+  pitch = g_pitch;
+  altitude = g_altitude;
   velocidade = g_velocidade;
-  distancia  = g_distancia;
+  distancia = g_distancia;
   xSemaphoreGive(dataMutex);
 
   char payload[160];
   snprintf(payload, sizeof(payload),
-    "{\"pitch\":%.1f,\"altitude\":%.0f,\"velocidade\":%.0f,\"distanciaPercorrida\":%.0f}",
-    pitch, altitude, velocidade, distancia);
+           "{\"pitch\":%.1f,\"altitude\":%.0f,\"velocidade\":%.0f,\"distanciaPercorrida\":%.0f}",
+           pitch, altitude, velocidade, distancia);
 
   MQTT.publish(TOPICO_PUB, payload);
   Serial.print("Publicado: ");
@@ -153,14 +207,14 @@ void publicaDados() {
 //   analogSetPinAttenuation(yAxisPin, ADC_11db);
 
 //   Wire.begin();
-  
+
 //   if (sensor.begin() == false) {
 //     Serial.println("Nao foi possivel conectar ao GY521");
 //     while (1) {
 //       vTaskDelay(pdMS_TO_TICKS(1000));
 //     }
 //   }
-  
+
 //   sensor.setAccelSensitivity(0);   // +/- 2g
 //   sensor.setGyroSensitivity(0);    // +/- 250 deg/s
 //   sensor.setThrottle(20);          // ~50Hz
@@ -226,15 +280,20 @@ void publicaDados() {
 // ============================================================
 // Task de rede: wifi + mqtt (core 1)
 // ============================================================
-void TaskMQTT(void *pvParameters) {
+void TaskMQTT(void *pvParameters)
+{
   MQTT.setServer(mqtt_broker, mqtt_port);
 
-  for (;;) {
-    if (WiFi.status() != WL_CONNECTED) conectaWifi();
-    if (!MQTT.connected()) conectaBroker();
+  for (;;)
+  {
+    if (WiFi.status() != WL_CONNECTED)
+      conectaWifi();
+    if (!MQTT.connected())
+      conectaBroker();
 
     static unsigned long pooling = 0;
-    if (millis() > pooling + 1000) {
+    if (millis() > pooling + 1000)
+    {
       pooling = millis();
       publicaDados();
     }
@@ -244,30 +303,43 @@ void TaskMQTT(void *pvParameters) {
 }
 
 // ============================================================
-void setup() {
+void setup()
+{
   Serial.begin(115200);
 
   dataMutex = xSemaphoreCreateMutex();
 
-  if (!SPIFFS.begin(true)) {
-    Serial.println("Erro ao montar SPIFFS — o portal de configuracao nao vai funcionar.");
-  }
+  if (!SPIFFS.begin(true))
+    Serial.println("Erro SPIFFS");
+  File root = SPIFFS.open("/");
+  for (File f = root.openNextFile(); f; f = root.openNextFile())
+    Serial.printf("%s  %u bytes\n", f.path(), f.size());
 
   memoria.begin("wifi", true);
-  ssid     = memoria.getString("ssid", "");
+  ssid = memoria.getString("ssid", "");
   password = memoria.getString("password", "");
   memoria.end();
 
-  if (ssid == "" || password == "") {
+  if (ssid == "" || password == "")
+  {
     setupAP();
-  } else {
+  }
+  else
+  {
     setupSTA();
   }
-
-  // xTaskCreatePinnedToCore(TaskControl, "TaskControl", 4096, NULL, 1, NULL, 0);
-  xTaskCreatePinnedToCore(TaskMQTT,    "TaskMQTT",    4096, NULL, 1, NULL, 1);
+  if (WiFi.status() == WL_CONNECTED)
+  {
+    // xTaskCreatePinnedToCore(TaskControl, "TaskControl", 4096, NULL, 1, NULL, 0);
+    xTaskCreatePinnedToCore(TaskMQTT, "TaskMQTT", 4096, NULL, 1, NULL, 1);
+  }
 }
 
-void loop() {
-  vTaskDelay(pdMS_TO_TICKS(1000));
+void loop()
+{
+  if (captivePortalActive)
+  {
+    dnsServer.processNextRequest();
+  }
+  vTaskDelay(pdMS_TO_TICKS(10));
 }
