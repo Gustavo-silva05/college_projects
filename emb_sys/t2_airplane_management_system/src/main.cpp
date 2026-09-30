@@ -1,17 +1,19 @@
 #include <Arduino.h>
 #include <Preferences.h>
-#include <WiFi.h>
 #include <DNSServer.h>
+#include <WiFi.h>
 #include <AsyncTCP.h>
 #include <ESPAsyncWebServer.h>
 #include "FS.h"
 #include "SPIFFS.h"
 #include <PubSubClient.h>
 #include <Wire.h>
-// #include "GY521.h"
+#include "GY521.h"
 #include <ESP32Servo.h>
 
 // ================= WiFi (AP/STA fallback, credenciais na NVS) =================
+// Reaproveitado do projeto anterior: se nao houver credenciais salvas, sobe um
+// Access Point para configuracao; senao, conecta direto na rede salva.
 String ssid = "";
 String password = "";
 Preferences memoria;
@@ -22,7 +24,7 @@ bool captivePortalActive = false;
 // ================= MQTT =================
 const char *mqtt_broker = "broker.emqx.io";
 const int mqtt_port = 1883;
-#define MQTT_ID "esp32_G1"         // <-- TROCAR: precisa ser UNICO no broker
+#define MQTT_ID "esp32_G1"         // <-- TROCAR: precisa ser UNICO no broker (nao pode repetir)
 #define TOPICO_PUB "Embarcados/G1" // <-- TROCAR: conforme o numero do seu grupo
 
 WiFiClient espClient;
@@ -35,25 +37,49 @@ const byte buttonPin = 32; // joystick SW (inicia percurso)
 const byte servoPin = 18;  // servo do profundor/asa
 
 // ================= Sensores/atuadores =================
-// GY521 sensor(0x68);
+GY521 sensor(0x68);
 Servo asaServo;
 
 // ================= Estado compartilhado entre as tasks =================
+// Protegido por mutex porque TaskControl escreve e TaskMQTT le, em cores diferentes.
 volatile float g_pitch = 0;
-volatile float g_altitude = 4000.0;  // parte de 4000m
-volatile float g_velocidade = 200.0; // parte de 200km/h
+volatile float g_altitude = 4000.0;  // parte de 4000m (especificacao)
+volatile float g_velocidade = 200.0; // parte de 200km/h (especificacao)
 volatile float g_distancia = 0.0;
 volatile bool g_started = false;
 
 float servoAngle = 90.0; // 90 = nivelado
 
-const float ANGLE_STEP = 0.5, ANGLE_MIN = 60.0, ANGLE_MAX = 120.0;
+const float ANGLE_STEP = 4, ANGLE_MIN = 60.0, ANGLE_MAX = 120.0;
 const float SPEED_STEP = 0.5, SPEED_MIN = 160.0, SPEED_MAX = 240.0;
 
 SemaphoreHandle_t dataMutex;
 
+static bool isIp(const String &value);
+
+static bool isIp(const String &value)
+{
+  if (value.length() == 0)
+    return false;
+
+  int dots = 0;
+  for (size_t i = 0; i < value.length(); ++i)
+  {
+    char c = value[i];
+    if (c == '.')
+    {
+      dots++;
+      continue;
+    }
+    if (c < '0' || c > '9')
+      return false;
+  }
+
+  return dots == 3;
+}
+
 // ============================================================
-// Portal de configuracao
+// Portal de configuracao (servido via SPIFFS, igual ao projeto anterior)
 // ============================================================
 void PaginaSalva(AsyncWebServerRequest *request)
 {
@@ -83,17 +109,6 @@ void PaginaConfig(AsyncWebServerRequest *request)
 // ============================================================
 // WiFi manager
 // ============================================================
-bool isIp(String str)
-{
-  for (size_t i = 0; i < str.length(); i++)
-  {
-    int c = str.charAt(i);
-    if (c != '.' && (c < '0' || c > '9'))
-      return false;
-  }
-  return true;
-}
-
 void setupAP()
 {
   WiFi.mode(WIFI_AP);
@@ -111,7 +126,7 @@ void setupAP()
 
   server.onNotFound([apIP](AsyncWebServerRequest *r)
                     {
-  if (!isIp(r->host())) {                       // probes de conectividade / domínios externos
+  if (!::isIp(r->host())) {                     // probes de conectividade / domínios externos
     auto *res = r->beginResponse(302, "text/plain", "");
     res->addHeader("Location", "http://" + apIP.toString() + "/");
     res->addHeader("Cache-Control", "no-store");
@@ -152,13 +167,13 @@ void setupSTA()
 
 void conectaWifi()
 {
-  if (WiFi.status() == WL_CONNECTED || captivePortalActive)
+  if (WiFi.status() == WL_CONNECTED)
     return;
   setupSTA();
 }
 
 // ============================================================
-// MQTT
+// MQTT (mesmo padrao PubSubClient do material da disciplina)
 // ============================================================
 void conectaBroker()
 {
@@ -201,81 +216,87 @@ void publicaDados()
 // ============================================================
 // Task de controle: joystick + IMU + servo (core 0)
 // ============================================================
-// void TaskControl(void *pvParameters) {
-//   pinMode(buttonPin, INPUT_PULLUP);
-//   analogSetPinAttenuation(xAxisPin, ADC_11db);
-//   analogSetPinAttenuation(yAxisPin, ADC_11db);
+void TaskControl(void *pvParameters)
+{
+  pinMode(buttonPin, INPUT_PULLUP);
+  analogSetPinAttenuation(xAxisPin, ADC_11db);
+  analogSetPinAttenuation(yAxisPin, ADC_11db);
 
-//   Wire.begin();
+  Wire.begin();
+  while (sensor.wakeup() == false)
+  {
+    Serial.println("Nao foi possivel conectar ao GY521");
+    vTaskDelay(pdMS_TO_TICKS(1000));
+  }
+  sensor.setAccelSensitivity(0); // +/- 2g, suficiente para oscilacao lenta
+  sensor.setGyroSensitivity(0);  // +/- 250 graus/s
+  sensor.setThrottle();
+  sensor.setThrottleTime(20); // ~50Hz
+  Serial.println("Deixe a placa horizontal e parada");
+  vTaskDelay(pdMS_TO_TICKS(2000));
+  sensor.calibrate(200);
+  Serial.println("Calibrado!");
 
-//   if (sensor.begin() == false) {
-//     Serial.println("Nao foi possivel conectar ao GY521");
-//     while (1) {
-//       vTaskDelay(pdMS_TO_TICKS(1000));
-//     }
-//   }
+  asaServo.attach(servoPin);
+  asaServo.write((int)servoAngle);
 
-//   sensor.setAccelSensitivity(0);   // +/- 2g
-//   sensor.setGyroSensitivity(0);    // +/- 250 deg/s
-//   sensor.setThrottle(20);          // ~50Hz
+  const float dt = 0.05; // 50Hz, mesma cadencia do sensor
+  TickType_t lastWake = xTaskGetTickCount();
 
-//   Serial.println("Deixe a placa horizontal e parada");
-//   vTaskDelay(pdMS_TO_TICKS(2000));
-//   sensor.axe = 0;
-//   sensor.aye = 0;
-//   sensor.aze = 0;
-//   sensor.gxe = 0;
-//   sensor.gye = 0;
-//   sensor.gze = 0;
-//   Serial.println("Pronto!");
+  for (;;)
+  {
+    int xValue = analogRead(xAxisPin);
+    int yValue = analogRead(yAxisPin);
+    bool buttonPressed = (digitalRead(buttonPin) == LOW);
 
-//   asaServo.attach(servoPin);
-//   asaServo.write((int)servoAngle);
+    int deltaX = xValue - 2048;
+    int deltaY = yValue - 2048;
+    if (abs(deltaX) < 300)
+      deltaX = 0; // deadzone
+    if (abs(deltaY) < 300)
+      deltaY = 0;
 
-//   const float dt = 0.05; // 50Hz
-//   TickType_t lastWake = xTaskGetTickCount();
+    if (buttonPressed && !g_started)
+    {
+      g_started = true;
+      Serial.println("Percurso iniciado!");
+    }
 
-//   for (;;) {
-//     int xValue = analogRead(xAxisPin);
-//     int yValue = analogRead(yAxisPin);
-//     bool buttonPressed = (digitalRead(buttonPin) == LOW);
+    // joystick -> servo (open-loop): sobe/desce em rampa, nao em salto
+    if (deltaY > 0)
+      servoAngle = min(servoAngle + ANGLE_STEP, ANGLE_MAX);
+    else if (deltaY < 0)
+      servoAngle = max(servoAngle - ANGLE_STEP, ANGLE_MIN);
+    asaServo.write((int)servoAngle);
 
-//     int deltaX = xValue - 2048;
-//     int deltaY = yValue - 2048;
-//     if (abs(deltaX) < 300) deltaX = 0;
-//     if (abs(deltaY) < 300) deltaY = 0;
+    // joystick -> velocidade (mesma logica de rampa)
+    xSemaphoreTake(dataMutex, portMAX_DELAY);
+    float velocidadeLocal = g_velocidade;
+    if (deltaX > 0)
+      velocidadeLocal = min(velocidadeLocal + SPEED_STEP, SPEED_MAX);
+    else if (deltaX < 0)
+      velocidadeLocal = max(velocidadeLocal - SPEED_STEP, SPEED_MIN);
+    g_velocidade = velocidadeLocal;
+    xSemaphoreGive(dataMutex);
 
-//     if (buttonPressed && !g_started) {
-//       g_started = true;
-//       Serial.println("Percurso iniciado!");
-//     }
+    // IMU: le o pitch real (nao controla nada, so mede)
+    sensor.read();
+    float pitch = -(sensor.getAngleY());
 
-//     if (deltaY > 0)      servoAngle = min(servoAngle + ANGLE_STEP, ANGLE_MAX);
-//     else if (deltaY < 0) servoAngle = max(servoAngle - ANGLE_STEP, ANGLE_MIN);
-//     asaServo.write((int)servoAngle);
+    // altitude/distancia so acumulam depois do click inicial
+    xSemaphoreTake(dataMutex, portMAX_DELAY);
+    g_pitch = pitch;
+    if (g_started)
+    {
+      float v_ms = g_velocidade * 1000.0 / 3600.0; // km/h -> m/s
+      g_altitude += v_ms * sin(radians(pitch)) * dt;
+      g_distancia += v_ms * dt;
+    }
+    xSemaphoreGive(dataMutex);
 
-//     xSemaphoreTake(dataMutex, portMAX_DELAY);
-//     float velocidadeLocal = g_velocidade;
-//     if (deltaX > 0)      velocidadeLocal = min(velocidadeLocal + SPEED_STEP, SPEED_MAX);
-//     else if (deltaX < 0) velocidadeLocal = max(velocidadeLocal - SPEED_STEP, SPEED_MIN);
-//     g_velocidade = velocidadeLocal;
-//     xSemaphoreGive(dataMutex);
-
-//     sensor.read();
-//     float pitch = -(sensor.getAngleY());
-
-//     xSemaphoreTake(dataMutex, portMAX_DELAY);
-//     g_pitch = pitch;
-//     if (g_started) {
-//       float v_ms = g_velocidade * 1000.0 / 3600.0;
-//       g_altitude   += v_ms * sin(radians(pitch)) * dt;
-//       g_distancia  += v_ms * dt;
-//     }
-//     xSemaphoreGive(dataMutex);
-
-//     vTaskDelayUntil(&lastWake, pdMS_TO_TICKS(50));
-//   }
-// }
+    vTaskDelayUntil(&lastWake, pdMS_TO_TICKS(50));
+  }
+}
 
 // ============================================================
 // Task de rede: wifi + mqtt (core 1)
@@ -293,7 +314,7 @@ void TaskMQTT(void *pvParameters)
 
     static unsigned long pooling = 0;
     if (millis() > pooling + 1000)
-    {
+    { // publica 1x por segundo
       pooling = millis();
       publicaDados();
     }
@@ -330,7 +351,7 @@ void setup()
   }
   if (WiFi.status() == WL_CONNECTED)
   {
-    // xTaskCreatePinnedToCore(TaskControl, "TaskControl", 4096, NULL, 1, NULL, 0);
+    xTaskCreatePinnedToCore(TaskControl, "TaskControl", 4096, NULL, 1, NULL, 0);
     xTaskCreatePinnedToCore(TaskMQTT, "TaskMQTT", 4096, NULL, 1, NULL, 1);
   }
 }
